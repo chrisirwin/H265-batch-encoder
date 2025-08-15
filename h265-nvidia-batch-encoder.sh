@@ -435,14 +435,6 @@ fi
 
 
 ############################
-# Unit Coversions
-############################
-
-# MIN_SIZE_RAW may have been set via an arg.
-# Re-calculate it regardless.
-MIN_SIZE_BYTES=$(echo "$MIN_SIZE_RAW" | awk '{printf "%.0f", $1 * 1024 * 1024 * 1024}')
-
-############################
 # Startup
 ############################
 
