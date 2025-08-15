@@ -1,28 +1,49 @@
 #!/bin/bash
 
 usage() {
-  echo "
+cat <<EOF
 Supported formats: .mkv .avi .mp4 .mov .wmv .flv
-This script re-encodes video files using hardware-accelerated HEVC (H.265) compression,
-optionally skipping already optimized files and ignoring small files.
+This script re-encodes video files using hardware-accelerated HEVC (H.265)
+compression, optionally skipping already optimized files and ignoring small
+files.
 
 Usage:
-  ./script.sh [-R] [min=X] [test=Y] [--dry-run] [--keep-original] [--allow-h265] [--allow-av1] [-backup /path] <folder>
-    -R              : Encode recursively inside subfolders
-    -min=X.YZ        : Ignore files smaller than X.YZ GB
-    --regex="PATTERN"        Only include files matching the given regex pattern (e.g., --regex="\.avi$").
-    -test=N          : Use N seconds for the test encode (default: 5)
-    --dry-run       : Only show compatible files without encoding
-    -keep-original : Keep original files instead of replacing them
-    -allow-h265    : Allow files already encoded in H.265
-    -allow-av1     : Allow files already encoded in AV1
-    -backup /path   : Save original files to backup path (used only if not using --keep-original)
-    --clean         : Remove temporary encoding files (.tmp_encode_*, .tmp_encode_test_*) from the folder(s, if combined with -R) 
-    --purge         : Remove encoded.list files from the folder(s, if combined with -R) 
-    --retry         : Remove failed.list files from the folder(s, if combined with -R) 
-    -h              : Show this help message
-    -stop-after HH.5  : Stop after HH.5 hours of encoding (useful if in cron)"
-  exit 0
+  ${0} [options] <folder>
+
+    -R
+            Encode recursively inside subfolders
+    -min=X.YZ
+            Ignore files smaller than X.YZ GB
+    --regex="PATTERN"
+            Only include files matching the given regex pattern
+            (example: --regex="\.avi$")
+    -test=N
+            Use N seconds for the test encode
+            (default: 5)
+    --dry-run
+            Only show compatible files without encoding
+    -keep-original
+            Keep original files instead of replacing them
+    -allow-h265
+            Allow files already encoded in H.265
+    -allow-av1
+            Allow files already encoded in AV1
+    -backup /path
+            Save original files to backup path
+            (only if not using --keep-original)
+    --clean
+            Remove temporary encoding files (.tmp_encode_*, .tmp_encode_test_*)
+            from the folder(s, if combined with -R)
+    --purge
+            Remove encoded.list files from the folder(s, if combined with -R)
+    --retry
+            Remove failed.list files from the folder(s, if combined with -R)
+    -h
+            Show this help message
+    -stop-after HH.5
+            Stop after HH.5 hours of encoding (useful if in cron)"
+EOF
+exit 0
 }
 
 
