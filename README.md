@@ -62,7 +62,7 @@ Usage:
     --regex="PATTERN"
             Only include files matching the given regex pattern
             (example: --regex="\.avi$")
-    -test=N
+    --test=N
             Use N seconds for the test encode
             (default: 5)
     --dry-run
