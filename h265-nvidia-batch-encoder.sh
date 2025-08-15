@@ -296,7 +296,7 @@ echo "██   ██ ██████   ██████  █████�
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -R) RECURSIVE=1 ; shift ;;
-    min=*) raw_min="${1#min=}"; MIN_SIZE_BYTES=$(echo "$raw_min" | sed 's/,/./' | awk '{printf "%.0f", $1 * 1024 * 1024 * 1024}') ; shift ;;
+    min=*) raw_min="${1#min=}"; MIN_SIZE_BYTES=$(echo "$raw_min" | sed 's/,/./' | awk '{printf "%.2f", $1 * 1024 * 1024 * 1024}') ; shift ;;
     test=*) TEST_DURATION="${1#test=}"; TEST_DURATION=${TEST_DURATION%.*} ; shift ;;
     --dry-run) DRY_RUN=1 ; shift ;;
     -keep-original) KEEP_ORIGINAL=1 ; shift ;;
@@ -306,8 +306,8 @@ while [[ $# -gt 0 ]]; do
     --clean) CLEAN_ONLY=1 ; shift ;;
     --purge) PURGE_ONLY=1 ; shift ;;
     --retry) RETRY=1 ; shift ;;
-	  -stop-after) STOP_AFTER_HOURS=$(echo "$2" | sed 's/,/./' | awk '{printf "%.0f", $1}'); shift 2 ;;
-    -regex=*) REGEX_FILTER="${1#--regex=}" ; shift ;;
+	  -stop-after) STOP_AFTER_HOURS=$(echo "$2" | sed 's/,/./' | awk '{printf "%.2f", $1}'); shift 2 ;;
+    -regex=*) REGEX_FILTER="${1#-regex=}" ; shift ;;
     -h) usage ;;
     *) [[ -z "$FOLDER" ]] && FOLDER="$1" || usage 1; shift ;;
   esac
