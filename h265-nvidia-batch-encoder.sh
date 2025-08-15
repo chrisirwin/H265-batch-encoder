@@ -43,7 +43,8 @@ Usage:
     -stop-after HH.5
             Stop after HH.5 hours of encoding (useful if in cron)"
 EOF
-exit 0
+# $1 is scoped to usage(), used as an exit-status value if provided.
+exit ${1}
 }
 
 
@@ -308,11 +309,12 @@ while [[ $# -gt 0 ]]; do
 	  -stop-after) STOP_AFTER_HOURS=$(echo "$2" | sed 's/,/./' | awk '{printf "%.0f", $1}'); shift 2 ;;
     -regex=*) REGEX_FILTER="${1#--regex=}" ; shift ;;
     -h) usage ;;
-    *) [[ -z "$FOLDER" ]] && FOLDER="$1" || usage; shift ;;
+    *) [[ -z "$FOLDER" ]] && FOLDER="$1" || usage 1; shift ;;
   esac
 done
 
-[[ -z "$FOLDER" || ! -d "$FOLDER" ]] && { echo "❌ Folder not found or not specified: $FOLDER"; exit 1; }
+[[   -z "$FOLDER" ]] && { echo -e "❌ Folder not specified.\n";   usage 1; }
+[[ ! -d "$FOLDER" ]] && { echo    "❌ Folder not found: $FOLDER"; exit  1; }
 
 
 # =====================
